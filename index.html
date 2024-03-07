@@ -26,7 +26,7 @@
     }
     function get() {
         fetch("https://site-demo-ks.azurewebsites.net/payments").then(function (response) {
-            return response;
+            return response.json();
         }).then(function (data) {
             document.getElementById('response').innerHTML = data
             console.log(data)
