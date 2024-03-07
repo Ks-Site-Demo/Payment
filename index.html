@@ -9,30 +9,9 @@
 </head>
 
 <body>
-    <div style="display: table; margin: 20% auto 0 auto; font-size: 40px;" onclick="getResponse()">
+    <div style="display: table; margin: 20% auto 0 auto; font-size: 40px;">
         Payment <i class="fa fa-cc-visa" style="color:red"></i>
-    </div>
-    <div style="display: table; margin: 5% auto; font-size: 40px;" id="response">
-        0
-    </div>
+    </div>    
 </body>
 
 </html>
-
-<script>
-    function getResponse() {
-        get();
-        document.getElementById('response').innerHTML = "wait..."
-    }
-    function get() {
-        fetch("https://site-demo-ks.azurewebsites.net/payments").then(function (response) {
-            return response.json();
-        }).then(function (data) {
-            document.getElementById('response').innerHTML = data
-            console.log(data)
-        }).catch(function (err) {
-            console.log('Fetch Error :-S', err);
-        });
-    }
-
-</script>
