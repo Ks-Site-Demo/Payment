@@ -29,6 +29,7 @@
             return response;
         }).then(function (data) {
             document.getElementById('response').innerHTML = data
+            console.log(data)
         }).catch(function (err) {
             console.log('Fetch Error :-S', err);
         });
