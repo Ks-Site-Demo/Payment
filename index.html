@@ -22,13 +22,13 @@
 <script>
     function getResponse() {
         get();
-        document.getElementById('response').innerHTML = 2
+        document.getElementById('response').innerHTML = "wait..."
     }
     function get() {
         fetch("https://financeksapi.azurewebsites.net/api/isalive").then(function (response) {
             return response;
         }).then(function (data) {
-            console.log(data);
+            document.getElementById('response').innerHTML = data
         }).catch(function (err) {
             console.log('Fetch Error :-S', err);
         });
