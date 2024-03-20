@@ -8,11 +8,14 @@
     <title>Payment</title>
 </head>
 
-<body>
-    <div style="display: table; margin: 20% auto 0 auto; font-size: 40px;" onclick="getResponse()">
-        Payment <i class="fa fa-cc-visa" style="color:red"></i>
+<body> 
+    <div style="display: table; margin: 5% auto; font-size: 30px; cursor: pointer;" id="database" onclick="getDatabaseType()">
+        ???
+    </div>   
+    <div style="display: table; margin: 20% auto 0 auto; font-size: 40px;" onclick="postPayment()">
+        <span style="user-select: none">Payment </span> <i class="fa fa-cc-visa" style="color:red"></i>
     </div>
-    <div style="display: table; margin: 5% auto; font-size: 40px;" id="response">
+    <div style="display: table; margin: 5% auto; font-size: 40px;" id="paymentCount">
         0
     </div>
 </body>
@@ -20,19 +23,46 @@
 </html>
 
 <script>
-    function getResponse() {
-        get();
-        document.getElementById('response').innerHTML = "wait..."
+    document.addEventListener("DOMContentLoaded", (event) => {
+        setPaymentCount();
+        getDatabaseType();
+    });
+
+    let paymentUrl = "https://site-demo-ks.azurewebsites.net/payments" //"https://localhost:44387/payments";
+    let databaseUrl = "https://site-demo-ks.azurewebsites.net/database" //"https://localhost:44387/database";
+    let paymentCountId = 'paymentCount';
+    let databaseId = 'database';
+    function setPaymentCount() {
+        get(paymentUrl, paymentCountId);
+        document.getElementById(paymentCountId).innerHTML = "wait..."
     }
-    function get() {
-        fetch("https://site-demo-ks.azurewebsites.net/payments").then(function (response) {
+    function getDatabaseType(){
+        get(databaseUrl, databaseId);
+        document.getElementById(databaseId).innerHTML = "wait..."
+    }
+    function get(url, elementId) {
+        fetch(url).then(function (response) {            
             return response.json();
-        }).then(function (data) {
-            document.getElementById('response').innerHTML = data
-            console.log(data)
+        }).then(function (json) {
+            console.log(json.data)
+            document.getElementById(elementId).innerHTML = json.data
         }).catch(function (err) {
             console.log('Fetch Error :-S', err);
         });
     }
-
+    function postPayment() {
+        fetch(paymentUrl, {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        }).then(function (response) {
+            return true;
+        }).then(function (isSuccess) {
+            if (isSuccess)
+                setPaymentCount();
+        }).catch(function (err) {
+            console.log('Post Error :-S', err);
+        });
+    }
 </script>
