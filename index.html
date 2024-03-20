@@ -8,10 +8,11 @@
     <title>Payment</title>
 </head>
 
-<body> 
-    <div style="display: table; margin: 5% auto; font-size: 30px; cursor: pointer;" id="database" onclick="getDatabaseType()">
+<body>
+    <div style="display: table; margin: 5% auto; font-size: 30px; cursor: pointer;" id="database"
+        onclick="getDatabaseType()">
         ???
-    </div>   
+    </div>
     <div style="display: table; margin: 20% auto 0 auto; font-size: 40px;" onclick="postPayment()">
         <span style="user-select: none">Payment </span> <i class="fa fa-cc-visa" style="color:red"></i>
     </div>
@@ -33,20 +34,21 @@
     let paymentCountId = 'paymentCount';
     let databaseId = 'database';
     function setPaymentCount() {
-        get(paymentUrl, paymentCountId);
         document.getElementById(paymentCountId).innerHTML = "wait..."
+        get(paymentUrl, paymentCountId);
     }
-    function getDatabaseType(){
-        get(databaseUrl, databaseId);
+    function getDatabaseType() {
         document.getElementById(databaseId).innerHTML = "wait..."
+        get(databaseUrl, databaseId);
     }
     function get(url, elementId) {
-        fetch(url).then(function (response) {            
+        fetch(url).then(function (response) {
             return response.json();
         }).then(function (json) {
             console.log(json.data)
             document.getElementById(elementId).innerHTML = json.data
         }).catch(function (err) {
+            document.getElementById(elementId).innerHTML = err
             console.log('Fetch Error :-S', err);
         });
     }
@@ -62,6 +64,7 @@
             if (isSuccess)
                 setPaymentCount();
         }).catch(function (err) {
+            document.getElementById(elementId).innerHTML = err
             console.log('Post Error :-S', err);
         });
     }
