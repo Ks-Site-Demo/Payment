@@ -27,7 +27,6 @@
     document.addEventListener("DOMContentLoaded", (event) => {
         setPaymentCount();
         getDatabaseType();
-        console.log(location)
     });
     let baseUrl = location.hostname == "" ? "https://localhost:44387" : "https://site-demo-ks.azurewebsites.net"
     let paymentUrl = `${baseUrl}/payments`;
@@ -46,7 +45,6 @@
         fetch(url).then(function (response) {
             return response.json();
         }).then(function (json) {
-            console.log(json.data)
             document.getElementById(elementId).innerHTML = json.data
         }).catch(function (err) {
             document.getElementById(elementId).innerHTML = err
