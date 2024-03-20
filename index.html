@@ -13,7 +13,7 @@
         onclick="getDatabaseType()">
         ???
     </div>
-    <div style="display: table; margin: 20% auto 0 auto; font-size: 40px;" onclick="postPayment()">
+    <div style="display: table; margin: 12% auto 0 auto; font-size: 40px;" onclick="postPayment()">
         <span style="user-select: none">Payment </span> <i class="fa fa-cc-visa" style="color:red"></i>
     </div>
     <div style="display: table; margin: 5% auto; font-size: 40px;" id="paymentCount">
@@ -29,8 +29,8 @@
         getDatabaseType();
     });
 
-    let paymentUrl = "https://site-demo-ks.azurewebsites.net/payments" //"https://localhost:44387/payments";
-    let databaseUrl = "https://site-demo-ks.azurewebsites.net/database" //"https://localhost:44387/database";
+    let paymentUrl = "https://localhost:44387/payments";
+    let databaseUrl =  "https://localhost:44387/database"; //"https://site-demo-ks.azurewebsites.net/database"
     let paymentCountId = 'paymentCount';
     let databaseId = 'database';
     function setPaymentCount() {
@@ -53,6 +53,7 @@
         });
     }
     function postPayment() {
+        document.getElementById(paymentCountId).innerHTML = "wait..."
         fetch(paymentUrl, {
             method: "POST",
             headers: {
@@ -63,8 +64,10 @@
         }).then(function (isSuccess) {
             if (isSuccess)
                 setPaymentCount();
+            else 
+                document.getElementById(paymentCountId).innerHTML = "Failed"
         }).catch(function (err) {
-            document.getElementById(elementId).innerHTML = err
+            document.getElementById(paymentCountId).innerHTML = err
             console.log('Post Error :-S', err);
         });
     }
