@@ -27,10 +27,11 @@
     document.addEventListener("DOMContentLoaded", (event) => {
         setPaymentCount();
         getDatabaseType();
+        console.log(location)
     });
-
-    let paymentUrl = "https://localhost:44387/payments";
-    let databaseUrl =  "https://localhost:44387/database"; //"https://site-demo-ks.azurewebsites.net/database"
+    let baseUrl = location.hostname == "" ? "https://localhost:44387" : "https://site-demo-ks.azurewebsites.net"
+    let paymentUrl = `${baseUrl}/payments`;
+    let databaseUrl =  `${baseUrl}/database`;
     let paymentCountId = 'paymentCount';
     let databaseId = 'database';
     function setPaymentCount() {
